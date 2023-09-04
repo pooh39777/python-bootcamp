@@ -360,3 +360,37 @@ np.dot(m1, m2)
 
 # import pandas
 import pandas as pd
+
+df = pd.read_csv("penguins.csv")
+
+df.columns
+
+colnames = list(df.columns)
+colnames[0] = "new_species"
+df.columns = colnames
+
+df.head()
+
+store = pd.read_csv("sample-store.csv")
+
+col_names = list(store.columns)
+clean_col_names = [col.lower().replace(" ", "_").replace("-", "_") for col in col_names]
+clean_col_names
+
+# clean column names
+store.columns = clean_col_names
+store.head()
+
+# read data from sql database
+import sqlite3
+
+# create connection
+con = sqlite3.connect("chinook.db")
+
+df = pd.read_sql("SELECT * FROM customers WHERE country = 'USA'", con)
+df.head()
+
+# close connection
+con.close()
+
+df[ df.State == "WA" ]
